@@ -9,6 +9,6 @@ import (
 var router = httprouter.New()
 
 func main() {
-	log.Info("Starting server on localhost:8080")
-	log.Fatal(http.ListenAndServe("localhost:8080", router))
+	log.Info("Starting server on :8080")
+	log.Fatal(http.ListenAndServe(":8080", router))
 }
