@@ -12,7 +12,7 @@ import (
 func init() {
 	router.GET("/hello/:name", Hello)
 	router.POST("/kong/:plugin", Kong)
-	router.POST("/headers/", Headers)
+	router.POST("/headers", Headers)
 }
 
 // Hello func
