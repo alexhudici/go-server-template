@@ -28,4 +28,7 @@ func Hello(w http.ResponseWriter, r *http.Request, ps httprouter.Params) {
 func Kong(w http.ResponseWriter, r *http.Request, ps httprouter.Params) {
 	fmt.Fprintf(w, "Plugin, "+ps.ByName("plugin"))
 	fmt.Println("Plugin, " + ps.ByName("plugin"))
+	fmt.Println("X-Auth-Token Header, " + r.Header.Get("X-Auth-Token"))
+	fmt.Println("X-Auth-Token Header, " + r.Header.Get("X-Auth-Project-Id"))
+	fmt.Println("X-Auth-Token Header, " + r.Header.Get("X-Auth-Service"))
 }
