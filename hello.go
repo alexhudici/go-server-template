@@ -11,6 +11,7 @@ import (
 
 func init() {
 	router.GET("/hello/:name", Hello)
+	router.POST("/kong/:plugin", Kong)
 }
 
 // Hello func
@@ -20,5 +21,11 @@ func Hello(w http.ResponseWriter, r *http.Request, ps httprouter.Params) {
 		log.Debugf("%q", dump)
 	}
 
-	fmt.Fprintf(w, "hello, %s!\n", ps.ByName("name"))
+	fmt.Fprintf(w, "hello, "+ps.ByName("name")) //%s!\n", ps.ByName("name"))
+}
+
+// Kong receiver func
+func Kong(w http.ResponseWriter, r *http.Request, ps httprouter.Params) {
+	fmt.Fprintf(w, "Plugin, "+ps.ByName("plugin"))
+	fmt.Println("Plugin, " + ps.ByName("plugin"))
 }
