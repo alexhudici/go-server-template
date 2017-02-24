@@ -31,7 +31,7 @@ func Kong(w http.ResponseWriter, r *http.Request, ps httprouter.Params) {
 	/*fmt.Println("X-Auth-Token Header, " + r.Header.Get("X-Auth-Token"))
 	fmt.Println("X-Auth-Token Header, " + r.Header.Get("X-Auth-Project-Id"))
 	fmt.Println("X-Auth-Token Header, " + r.Header.Get("X-Auth-Service"))*/
-	for k, v := range response.Header {
+	for k, v := range r.Header {
 		fmt.Println("key:", k, "value:", v)
 	}
 }
