@@ -12,6 +12,7 @@ import (
 func init() {
 	router.GET("/hello/:name", Hello)
 	router.POST("/kong/:plugin", Kong)
+	router.POST("/headers/", Headers)
 }
 
 // Hello func
@@ -28,9 +29,25 @@ func Hello(w http.ResponseWriter, r *http.Request, ps httprouter.Params) {
 func Kong(w http.ResponseWriter, r *http.Request, ps httprouter.Params) {
 	fmt.Fprintf(w, "Plugin, "+ps.ByName("plugin"))
 	fmt.Println("Plugin, " + ps.ByName("plugin"))
-	/*fmt.Println("X-Auth-Token Header, " + r.Header.Get("X-Auth-Token"))
-	fmt.Println("X-Auth-Token Header, " + r.Header.Get("X-Auth-Project-Id"))
-	fmt.Println("X-Auth-Token Header, " + r.Header.Get("X-Auth-Service"))*/
+	/*
+		test me on an API
+		fmt.Println("X-Auth-Token Header, " + r.Header.Get("X-Auth-Token"))
+		fmt.Println("X-Auth-Token Header, " + r.Header.Get("X-Auth-Project-Id"))
+		fmt.Println("X-Auth-Token Header, " + r.Header.Get("X-Auth-Service"))*/
+
+	printHeaders(r)
+}
+
+// Kong receiver func
+func Headers(w http.ResponseWriter, r *http.Request, ps httprouter.Params) {
+	fmt.Fprintf(w, "Plugin, "+ps.ByName("plugin"))
+	fmt.Println("Plugin, " + ps.ByName("plugin"))
+
+	printHeaders(r)
+
+}
+
+func printHeaders(r *http.Request) {
 	for k, v := range r.Header {
 		fmt.Println("key:", k, "value:", v)
 	}
