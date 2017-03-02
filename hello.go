@@ -2,6 +2,7 @@ package main
 
 import (
 	"fmt"
+	"io/ioutil"
 	"net/http"
 	"net/http/httputil"
 
@@ -13,6 +14,7 @@ func init() {
 	router.GET("/hello/:name", Hello)
 	router.POST("/kong/:plugin", Kong)
 	router.POST("/headers", Headers)
+	router.POST("/logs", Logs)
 }
 
 // Hello func
@@ -38,13 +40,25 @@ func Kong(w http.ResponseWriter, r *http.Request, ps httprouter.Params) {
 	printHeaders(r)
 }
 
-// Kong receiver func
+// Headers receiver func
 func Headers(w http.ResponseWriter, r *http.Request, ps httprouter.Params) {
 	fmt.Fprintf(w, "Plugin, "+ps.ByName("plugin"))
 	fmt.Println("Plugin, " + ps.ByName("plugin"))
 
 	printHeaders(r)
 
+}
+
+// Logs receiver func
+func Logs(w http.ResponseWriter, r *http.Request, ps httprouter.Params) {
+	body, err := ioutil.ReadAll(r.Body)
+	defer r.Body.Close()
+	if err != nil {
+		log.Error(err)
+	}
+
+	fmt.Println(body)
+	fmt.Fprintf(w, "hello log "+string(body))
 }
 
 func printHeaders(r *http.Request) {
